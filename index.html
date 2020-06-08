@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserPortfolio</title>
+    <style>
+        .main{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        loading....
+    </div>
+    <div class="main" id="mainContainer" hidden>
+        <img 
+        id="profileImage"
+        height=200
+        weight=100
+        >
+        <h1 id= "fullName"></h1>
+        <p id="bio"></p>
+        <h5 id="noofRepo"></h5>
+        <p>
+            Check Me On <a id="githublink">Github</a>
+        </p>
+        <a class="twitter-timeline" data-width="300" data-height="400" href="https://twitter.com/TankaTiwari1?ref_src=twsrc%5Etfw">Tweets by TankaTiwari1</a> 
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+    <script>
+        fetch("https://api.github.com/users/dipak7541")
+        .then(response => response.json())
+        .then(function(data){
+            console.log(data)
+            let repositoryCount=data['public_repos']
+            let repositoaryInfo=`I have ${repositoryCount} number of public repositories`
+            document.getElementById("profileImage").src=data['avatar_url']
+            document.getElementById("fullName").textContent=data['name']
+            document.getElementById("bio").textContent=data['bio']
+            document.getElementById("noofRepo").textContent=repositoaryInfo
+            document.getElementById("githublink").href=data['html_url']
+            
+            document.getElementById("mainContainer").hidden=false
+            document.getElementById("loading").hidden=true
+        })
+    </script>
+
+</body>
+</html>
