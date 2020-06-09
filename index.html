@@ -2,33 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UserPortfolio</title>
-    <style>
-        .main{
-            text-align: center;
-        }
-    </style>
-</head>
+</head>    
 <body>
     <div id="loading">
-        loading....
+        loading...
     </div>
     <div class="main" id="mainContainer" hidden>
-        <img 
-        id="profileImage"
-        height=200
-        weight=100
-        >
-        <h1 id= "fullName"></h1>
-        <p id="bio"></p>
-        <h5 id="noofRepo"></h5>
-        <p>
-            Check Me On <a id="githublink">Github</a>
-        </p>
-        <a class="twitter-timeline" data-width="300" data-height="400" href="https://twitter.com/TankaTiwari1?ref_src=twsrc%5Etfw">Tweets by TankaTiwari1</a> 
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
+        <div class="Container">
+            <div class="row portfolio">
+                <div class="col-sm-12 col-md-6 col-lg-4 portfolio-left">
+                        <div class="profilePicture">
+                            <img id="profileImage">
+                        </div>
+                        <div class="extraInfo">
+                            <h2 id= "fullName"></h2>
+                            <p id="bio"></p>
+                            <p id="noofRepo"></p>
+                            <p id="location"></p>
+                            <p id="gitl">
+                            Check Me On <a id="githublink">Github</a>
+                            </p>
+                        </div>
+                        <div class="Skills">
+                            <div class="title">
+                                <h2>SKILL'S</h2>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div class="skill_name">
+                                        <p>C/C++<br>
+                                        Python<br>
+                                        Java<br>
+                                        HTML and CSS<br>
+                                        JavaScript<br>
+                                        Django<br>
+                                        Data Science<br>
+                                        Data Vistualization<br>
+                                        Laraval<br>
+                                        </p>
+                                        </div>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-8 portfolio-right">
+                        <div class="projectlist">
+                            <h2 class="title">My Prjects</h2>
+                            <ul>
+                                <li>
+                                    <p id="reposName"></p>
+                                </li>
+                            </ul>         
+                        </div>
+                        <div class="twitterpage">
+                            <h2 class="title">My Twitter Account</h2>
+                            <a class="twitter-timeline" data-width="300" data-height="400" href="https://twitter.com/TankaTiwari1?ref_src=twsrc%5Etfw">Tweets by TankaTiwari1</a> 
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </div>
+                        
+                    </div>  
+                </div>
+        
+                
+            </div>
+            </div>
+            </div>
+        </div>
+        
     <script>
         fetch("https://api.github.com/users/dipak7541")
         .then(response => response.json())
@@ -41,9 +88,24 @@
             document.getElementById("bio").textContent=data['bio']
             document.getElementById("noofRepo").textContent=repositoaryInfo
             document.getElementById("githublink").href=data['html_url']
+            document.getElementById("location").textContent=data['location']
             
             document.getElementById("mainContainer").hidden=false
             document.getElementById("loading").hidden=true
+
+        })
+    </script>
+    <script>
+        var x=""
+        fetch("https://api.github.com/users/dipak7541/repos")
+        .then(response => response.json())
+        .then(function(data){
+            console.log(data)
+            for (i=0;i<data.length;i++){
+                x+=data[i]['name'] + "<br>";
+            }
+            document.getElementById("reposName").innerHTML += x
+                
         })
     </script>
 
